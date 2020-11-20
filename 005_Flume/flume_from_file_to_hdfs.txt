@@ -1,0 +1,53 @@
+cd Desktop/opt/flume-1.8.0/conf/
+ls
+cp flume-conf.properties.template flume-conf1.properties
+ls
+gedit flume-conf1.properties
+    (paste this properties)
+    > 
+        # Name the components
+        plumber.sources = file1
+        plumber.sinks = hdfs1
+        plumber.channels = mem
+
+        # Configure Source
+        plumber.sources.file1.type = spooldir
+        plumber.sources.file1.spoolDir = /home/consultant/Desktop/flumeTest1
+        plumber.sources.file1.fileHeader = true
+
+        # Configure Channel
+        plumber.channels.mem.type = memory
+        plumber.channels.mem.capacity = 1000
+        plumber.channels.mem.transactionCapacity = 100
+
+        # Configure Sink
+        plumber.sinks.hdfs1.type = hdfs
+        plumber.sinks.hdfs1.hdfs.path = /flume01
+        plumber.sinks.hdfs1.hdfs.fileType = DataStream
+
+
+        # Configure connection
+        plumber.sources.file1.channels = mem
+        plumber.sinks.hdfs1.channel = mem
+
+cd Desktop
+mkdir flumeTest1
+cd flumeTest1
+gedit flumetest
+    > write anything inside to have some content
+pwd
+    > copy path
+    > paste inside flume-conf1.properties
+
+cd
+jps (make sure hdfs is running)
+hdfs dfs -ls /
+hdfs dfs -mkdir /flume01
+hdfs dfs -ls /
+pwd
+    > copy and paste into flume-conf1.properties
+
+Now starting Flume 
+
+flume-ng agent -n plumber -c conf -f ~/Desktop/opt/flume-1.8.0/conf/flume-conf1.properties -Dflume.root.logger=DEBUG,console
+

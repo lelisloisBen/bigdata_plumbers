@@ -1,0 +1,12 @@
+
+# JAVA 
+wget https://javadl.oracle.com/webapps/download/AutoDL?BundleId=239835_230deb18db3e4014bb8e3e8324f81b43
+
+# PYTHON3
+wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz
+
+# SCALA 
+wget www.scala-lang.org/files/archive/scala-2.11.8.deb
+
+# SBT 
+wget https://bintray.com/artifact/download/sbt/debian/sbt-0.13.9.deb

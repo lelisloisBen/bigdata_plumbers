@@ -1,0 +1,106 @@
+###### import data from mysql using sqoop
+
+
+## NEW USER MYSQL ACCESS REMOTLY
+https://medium.com/@nitingupta.bciit/setup-sqoop-to-import-mysql-data-to-hdfs-on-ubuntu-16-04-5243d9eef560
+
+create an user to access remotly the database
+
+## access locally your database
+    $ sudo mysql
+
+## Create a database for hadoop
+    $ create DATABASE hadoop_test;
+    $ use hadoop_test;
+
+## Create a new table user 
+    $ create table user(name varchar(20));
+
+## Create new mySql login user named as "sqoop_user"
+    $ CREATE USER 'sqoop_user'@'localhost' IDENTIFIED BY 'Welcome2BB';
+
+## Provide new user “sqoop_user” privilege to connect to “hadoop_test” database.
+    $ GRANT ALL PRIVILEGES ON hadoop_test.* TO 'sqoop_user'@'localhost';
+    $ FLUSH PRIVILEGES;
+
+## Login to mysql using new user "sqoop_user" (remotly)
+    $ mysql -u sqoop_user -p
+    $ Welcome2BB
+
+
+
+##
+sqoop cmd 
+
+Import 
+    sqoop import --connect jdbc:mysql://localhost/db --username [mysql username] -p(if password needed) -m [numb of mappers] --table [table name] --target-dir [hdfs directory]
+
+Export  
+    sqoop export --connect jdbc:mysql://localhost/db --username [mysql username] -p(if password needed) -m [numb of mappers] --table [table name] --export-dir [source]
+
+Sqoop Job
+    sqoop job --create myjob --[type] --connect jdbc:mysql://localhost/db --username [mysql username] -p(if password needed) --table [table name]
+
+
+##
+
+#####
+test sqoop 
+
+sqoop import --connect jdbc:mysql://localhost/hadoop_test --username sqoop_user --password Welcome2BB --table employee --target-dir /home/consultant/Desktop/opt/hadoop-3.1.3/hdfs --m 2 
+
+#####
+
+msql connector download
+
+wget  https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.49.tar.gz
+tar zxvf mysql-connector-java-5.1.30.tar.gz
+rm mysql-connector-java-5.1.30.tar.gz
+ls
+
+sudo cp /home/consultant/Desktop/opt/mysql-connector-java-5.1.49/mysql-connector-java-5.1.49-bin.jar /home/consultant/Desktop/opt/sqoop-1.4.7/lib
+
+
+
+sudo apt-get update
+cd Desktop/opt
+wget http://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
+tar zxvf sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
+
+rm sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
+ls
+mv sqoop-1.4.7.bin__hadoop-2.6.0/ sqoop-1.4.7
+ls
+cd sqoop-1.4.7/
+pwd -> /home/consultant/Desktop/opt/sqoop-1.4.7
+ls
+cd conf
+ls
+mv sqoop-env-template.sh sqoop-env.sh
+ls
+sudo gedit sqoop-env.sh
+    ## inside sqoop-env.sh uncomment the two lines and paste the path copy before
+    #Set path to where bin/hadoop is available
+    export HADOOP_COMMON_HOME=/home/consultant/Desktop/opt/hadoop-3.1.3
+
+    #Set path to where hadoop-*-core.jar is available
+    export HADOOP_MAPRED_HOME=/home/consultant/Desktop/opt/hadoop-3.1.3
+
+other terminal at root
+    sudo gedit .bash_profile
+
+    add this lines: 
+        ## SQOOP Home
+        export SQOOP_HOME=/home/consultant/Desktop/opt/sqoop-1.4.7
+        export PATH=$PATH:$SQOOP_HOME/bin
+    
+    source .bash_profile
+    sqoop version
+
+##
+Once everything is done, you can run this command:
+
+sqoop import --connect jdbc:mysql://localhost/hadoop_test --username sqoop_user --password Welcome2BB --table employee --target-dir /home/consultant/Desktop/opt/hadoop-3.1.3/hdfs --m 2 
+
+## To try, not sure its working yet
+sqoop export --connect jdbc:mysql://localhost/BigData --username fieldemployee --password 'Password' --table hdfs_export --fields-terminated-by '\t' --lines-terminated-by '\n' --export-dir hdfs://localhost:9000/sqoop_export

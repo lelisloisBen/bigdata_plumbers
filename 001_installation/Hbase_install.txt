@@ -1,0 +1,88 @@
+wget http://apache.mirrors.hoobly.com/hbase/2.3.0/hbase-2.3.0-bin.tar.gz
+
+tar zxvf hbase-2.3.0-bin.tar.gz
+
+rm hbase-2.3.0-bin.tar.gz 
+
+cd hbase-2.3.0
+ls
+cd conf
+gedit hbase-env.sh
+    > edit line 27 
+    > export JAVA_HOME=/home/consultant/Desktop/opt/jdk1.8.0_221
+
+gedit hbase-site.xml
+    > paste the code
+    >   <?xml version="1.0"?>
+        <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+        <configuration>
+
+        <property>
+            <name>hbase.rootdir</name>
+            <value>hdfs://localhost:9000/hbase</value>
+        </property>
+
+        <property>
+            <name>hbase.master.port</name>
+            <value>60001</value>
+        </property>
+
+        <property>
+            <name>hbase.zookeeper.property.dataDir</name>
+            <value>/home/consultant/Desktop/opt/hbase-2.3.0/hadoop/zookeeper</value>
+        </property>
+
+        <property>
+            <name>hbase.cluster.distributed</name>
+            <value>true</value>
+        </property>
+
+        </configuration> 
+
+# create a folder inside another folder in hbase home directory
+cd $HBASE_HOME
+mkdir -m 755 hadoop
+cd hadoop
+mkdir -m 755 zookeeper
+cd zookeeper
+pwd
+# copy and paste the path inside hbase-site.xml
+/home/consultant/Desktop/opt/hbase-2.3.0/hadoop/zookeeper
+
+# make sure hadoop is running and create a folder /hbase
+jps
+hdfs dfs -ls /
+hdfs dfs -mkdir /hbase
+
+# stop hadoop and restart everything
+jps 
+stop-dfs.sh
+stop-yarn.sh
+jps
+# look if everything is stopped or kill -9 -number
+
+# start hbase
+start-yarn.sh
+start-dfs.sh
+start-hbase.sh
+
+# take a look inside hdfs /hbase
+hdfs dfs -ls /hbase
+
+## you should see something like that in /hbase
+    >   Found 12 items
+        drwxr-xr-x   - consultant supergroup          0 2020-07-29 19:59 /hbase/.hbck
+        drwxr-xr-x   - consultant supergroup          0 2020-07-29 19:59 /hbase/.tmp
+        drwxr-xr-x   - consultant supergroup          0 2020-07-29 19:59 /hbase/MasterData
+        drwxr-xr-x   - consultant supergroup          0 2020-07-29 19:59 /hbase/WALs
+        drwxr-xr-x   - consultant supergroup          0 2020-07-29 19:59 /hbase/archive
+        drwxr-xr-x   - consultant supergroup          0 2020-07-29 19:59 /hbase/corrupt
+        drwxr-xr-x   - consultant supergroup          0 2020-07-29 19:59 /hbase/data
+        -rw-r--r--   1 consultant supergroup         42 2020-07-29 19:59 /hbase/hbase.id
+        -rw-r--r--   1 consultant supergroup          7 2020-07-29 19:59 /hbase/hbase.version
+        drwxr-xr-x   - consultant supergroup          0 2020-07-29 19:59 /hbase/mobdir
+        drwxr-xr-x   - consultant supergroup          0 2020-07-29 19:59 /hbase/oldWALs
+        drwx--x--x   - consultant supergroup          0 2020-07-29 19:59 /hbase/staging
+
+

@@ -1,0 +1,29 @@
+https://rapidapi.com/etd.youssef/api/api-playstore?endpoint=apiendpoint_bedf9d79-b298-4a87-b611-1182a925509c
+
+API-PlayStore
+
+## bash file to start zookeeper, kafka, yarn, dfs
+bash demarekafka.sh
+
+## bash file to stop zookeeper, kafka, yarn, dfs
+bash stopkafka.sh
+
+spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.4.4,org.mongodb.spark:mongo-spark-connector_2.11:2.4.2 consumerTest1.py 
+
+CREATE TOPIC
+kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic CapstoneSamirTest
+
+> db.createCollection('playstore')
+
+> db.playstore.find().pretty()
+
+> db.playstore.find({},{_id:0}).sort({score:1})
+
+## display list of applications sort by score, best on top
+> db.playstore.find({},{_id:0}).sort({score:-1}).pretty()
+## type 'it' for more data
+> it
+
+https://cloud.mongodb.com/
+
+user: playstore, pass: Welcome2BB

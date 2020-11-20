@@ -1,0 +1,24 @@
+### Twitter Flume Spark with Python
+
+https://spark.apache.org/docs/latest/streaming-programming-guide.html
+
+
+## make sure hadoop is running
+# jps
+# start-yarn.sh
+# start-dfs.sh
+
+cd $FLUME_HOME
+flume-ng agent --name TwitterAgent --conf-file conf/flume-conf_twitter_2_spark.properties -Dflume.root.logger=INFO,console
+
+--packages spark-streaming-flume-sink_2.11-2.2.0.jar
+spark-submit /home/consultant/Desktop/bigdata_plumbers/008_Flume-Spark/twitter_ingest.py 
+
+
+spark-submit --packages spark-streaming-flume-sink_2.11-2.2.0.jar /home/consultant/Desktop/bigdata_plumbers/008_Flume-Spark/twitter_ingest.py
+
+
+spark-submit --packages org.apache.spark:spark-streaming-flume:2.4.4 /home/consultant/Desktop/bigdata_plumbers/008_Flume-Spark/twitter_ingest.py
+
+
+

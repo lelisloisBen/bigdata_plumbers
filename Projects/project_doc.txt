@@ -1,0 +1,10 @@
+NBA AVERAGE PLAYER
+
+Want to be a NBA player, we will analyse all the players heigt and weight and 
+take an average of them, we gonna add and divide by the numbers of players and 
+we will have the perfect average NBA player.
+
+For them who ask themselves if they can be a NBA player, 
+we giving you the average heigt and weight.
+
+we ingest data from NBA API.

@@ -1,0 +1,19 @@
+# SPARK INSTALL
+
+cd Desktop/opt
+ls
+wget http://archive.apache.org/dist/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.7.tgz
+tar zxvf spark-2.4.4-bin-hadoop2.7.tgz 
+rm spark-2.4.4-bin-hadoop2.7.tgz
+mv spark-2.4.4-bin-hadoop2.7.tgz/ spark-2.4.4
+cd
+sudo gedit .bash_profile
+    ## Paste this lines into .bash_profile
+    >   ## SPARK Home
+        export SPARK_HOME=/home/consultant/Desktop/opt/spark-2.4.4
+        export PATH=$PATH:$SPARK_HOME/bin
+source .bash_profile
+
+# try the spark shell to see
+> spark-shell
+ 

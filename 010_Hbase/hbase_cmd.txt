@@ -1,0 +1,47 @@
+## Load employee.csv file into Hbase Table
+
+## Create the table
+Syntax: create '<table name>' , '<column-family1>' , '<column-family2>'
+
+create 'employee','Personal_Information','Professional_Information'
+
+## Insert Values into the Table
+Syntax: put '<HBase_table_name>', 'row_key', '<colfamily:colname>', '<value>'
+
+put 'employee','1','Personal_Information:name','samir'
+put 'employee','1','Personal_Information:phone','12345'
+put 'employee','1','Personal_Information:city','Miami'
+
+put 'employee','1','Professional_Information:id','01'
+put 'employee','1','Professional_Information:email','samir@enhanceit.com'
+put 'employee','1','Professional_Information:department','Big Data'
+
+
+## From Hive to Hbase.
+## Make sure you already have an existing table in Hive
+## Here we already have 'nba1' table
+## place :key where you want the key to be, here I decide to use team_id as key.
+
+CREATE TABLE hbase_table_nba
+  (
+    first_name STRING,
+    height_feet STRING,
+    height_inches STRING,
+    team_id STRING,
+    last_name STRING,
+    position STRING,
+    id STRING,
+    weight_pounds STRING
+  )
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+WITH SERDEPROPERTIES ("hbase.columns.mapping" = "players:first_name,players:height_feet,players:height_inches,:key,players:last_name,players:position,players:id,players:weight_pounds")
+TBLPROPERTIES ("hbase.table.name" = "nba_hbase", "hbase.mapred.output.outputtable" = "nba_hbase");
+
+INSERT INTO TABLE hbase_table_nba SELECT * FROM nba1;
+
+
+ 
+ 
+ 
+ 
+ 

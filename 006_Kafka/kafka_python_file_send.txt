@@ -1,0 +1,63 @@
+# Sending a file from the producer to the consumer vith pyhton
+## https://towardsdatascience.com/kafka-python-explained-in-10-lines-of-code-800e3e07dad1
+
+
+# first install kafka-python
+
+# update
+sudo apt update
+# install pip3 for python3
+sudo apt install python3-pip
+# check pip3
+pip3 --version
+# install kafka-python
+pip3 install kafka-python
+
+# create a new python file and name it kafka_producer.py
+# paste the code below
+
+    >   from time import sleep
+        from json import dumps
+        import json
+        from kafka import KafkaProducer
+
+        ## replace 'localhost:9098' by the port you used with your broker
+        producer = KafkaProducer(bootstrap_servers=['localhost:9098'])
+        ## replace 'Shakespeare.txt' by the path of the file you want to send
+        f = open('Shakespeare.txt', 'r')
+        line_list = f.readlines()
+
+        for e in range(len(line_list)):
+            producer.send('bigdata',json.dumps(line_list[e]).encode('utf-8'))
+            sleep(1)
+
+        print("file send successfuly :) ")
+
+
+# create a new python file and name it kafka_consumer.py
+# paste the code below
+    >   from kafka import KafkaConsumer
+        from json import loads
+
+        ## replace 'new_one.txt' by the path and name of the file you want to create and write the message from producer
+        f = open('new_one.txt','w')
+        ## replace 'localhost:9098' by the port you used with your broker
+        consumer = KafkaConsumer( 'bigdata', bootstrap_servers=['localhost:9098'], auto_offset_reset='earliest')
+
+        for message in consumer:
+            message = message.value
+            f.write(message.decode("utf-8"))
+
+
+        print("gooooooooood")
+        f.close()
+
+### PS: you will not see the message until you stop the consumer
+
+# open two diferent terminal and start the producer then the consumer
+
+# producer start to read the file
+python3 kafka_producer.py
+
+# consumer start to write the new file
+python3 kafka_consumer.py

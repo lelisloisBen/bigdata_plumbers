@@ -1,0 +1,57 @@
+## FLUME AND netcat
+# need to do this first : 
+# https://stackoverflow.com/questions/58688470/flume-sink-to-hdfs-error-java-lang-nosuchmethoderror-com-google-common-base-pr
+
+> cd $FLUME_HOME
+> cd lib/
+> sudo rm guava-11.0.2.jar
+
+
+# then this
+
+> cd Desktop/opt/flume-1.8.0/conf/
+> ls
+> cp flume-conf.properties.template flume-conf2.properties
+> ls
+> gedit flume-conf2.properties
+    >
+    agent.sources = netcat
+    agent.channels = mem
+    agent.sinks = hadoop
+
+
+    # For each one of the sources, the type is defined
+    agent.sources.netcat.type = netcat
+    agent.sources.netcat.bind= localhost
+    agent.sources.netcat.port= 44444
+
+    # The channel can be defined as follows.
+    agent.channels.mem.type = memory
+    agent.channels.mem.capacity= 1000
+    agent.channels.mem.transactionCapacity= 100
+
+    # Each sink's type must be defined
+    agent.sinks.hadoop.type = hdfs
+    agent.sinks.hadoop.hdfs.path= /flumenetcat
+    agent.sinks.hadoop.hdfs.roll.Interval= 10
+    agent.sinks.hadoop.hdfs.writeFormat= Text
+    agent.sinks.hadoop.hdfs.filetype= DataStream
+
+    # Bind the source and sink to the channel
+    agent.sources.netcat.channels= mem
+    agent.sinks.hadoop.channel= mem
+
+> hdfs dfs -ls /
+> hdfs dfs -mkdir /flumenetcat
+
+# start flume netcat
+
+> flume-ng agent --name agent --conf-file conf/flume-conf2.properties -Dflume.root.logger=INFO,console
+
+## look when the command is running the ip address 
+
+# open a new terminal and type this to send your message to hdfs
+
+> nc 127.0.0.1 44444
+
+# you should be able to see a new file on hdfs dfs -ls /flumenetcat 

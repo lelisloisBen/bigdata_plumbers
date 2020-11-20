@@ -1,0 +1,13 @@
+cd Desktop/opt
+wget http://archive.apache.org/dist/kafka/2.0.0/kafka_2.12-2.0.0.tgz
+tar zxvf kafka_2.12-2.0.0.tgz
+rm kafka_2.12-2.0.0.tgz
+cd
+sudo gedit .bash_profile
+    ->  ## KAFKA Home
+        export KAFKA_HOME=/home/consultant/Desktop/opt/kafka_2.12-2.0.0
+        export PATH=$PATH:$KAFKA_HOME/bin
+
+source .bash_profile
+cd Desktop/opt/kafka_2.12-2.0.0/bin
+ls

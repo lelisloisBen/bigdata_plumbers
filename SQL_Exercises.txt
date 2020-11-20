@@ -1,0 +1,74 @@
+1.  Write a query in SQL to display the first name, last name, department id, 
+    and department name for each employee
+
+    a. Print all employees
+
+        SELECT 
+        employee.firstName,
+        employee.lastName,
+        employee.address,
+        employee.city,
+        employee.zipCode,
+        employee.phoneNumber,
+        employee.email,
+        hr.employeeId,
+        hr.salary
+        FROM employee 
+        INNER JOIN hr
+        ON employee.id = hr.employeeId;
+
+    b. Print all employees with Frist Name starting with an A, E, I, O, U
+
+        SELECT * FROM employee WHERE firstName LIKE 'A%';
+
+2.  Write a query in SQL to display the first and last name, department, and city 
+    for each employee
+
+    a. Where is City is Atlanta, New York, Orlando
+
+        SELECT 
+        employee.firstName,
+        employee.lastName,
+        employee.address,
+        employee.city,
+        employee.zipCode,
+        employee.phoneNumber,
+        employee.email,
+        hr.employeeId,
+        hr.salary
+        FROM employee 
+        INNER JOIN hr
+        ON employee.id = hr.employeeId
+        AND (employee.city = 'Atlanta' OR employee.city = 'New York' OR employee.city = 'Orlando');
+
+    b. Count of employees from each city 
+
+        SELECT COUNT( employee.id) AS numberOfEmployees
+        FROM employee 
+        GROUP BY city;
+
+3.  Write a query in SQL to display the first name, salary, and department name 
+    for all employees
+
+    a. Top 5 salary
+
+
+        SELECT 
+        employee.firstName,
+        hr.salary,
+        hr.deptId
+        FROM employee 
+        INNER JOIN hr
+        ON employee.id = hr.employeeId
+        ORDER BY hr.salary
+        LIMIT 5;
+
+
+        
+    b. Highest salary in each department 
+
+        SELECT 
+        Count(DeptName) As Total_Emp_Per_Dept, 
+        DeptName,
+        (SELECT salary From hr Order By salary Desc Limit 1) As Dept_Top_Salary From hr Group By DeptName;
+        

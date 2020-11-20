@@ -1,0 +1,57 @@
+## KAFKA
+## Start Zookeeper for Kafka
+
+source .bash_profile
+jps
+zookeeper-server-start.sh /home/consultant/Desktop/opt/kafka_2.12-2.0.0/config/zookeeper.properties
+# or to start it in the background start it in daemon mode
+zookeeper-server-start.sh -daemon /home/consultant/Desktop/opt/kafka_2.12-2.0.0/config/zookeeper.properties
+
+# start KAFKA server
+
+cd $KAFKA_HOME/ # hit tab -> /Desktop/opt/kafka_2.12-2.0.0
+cd config
+ls
+# create a copy of properties to not use the template one
+cp server.properties server1.properties
+gedit server1.properties
+    # replace  this lines
+    > broker.id = 1 (choose a number for the broker)
+    > listeners=PLAINTEXT://:9098  (choose a port for the broker between 9092 and 9099)
+
+# Now start kafka server 
+kafka-server-start.sh /home/consultant/Desktop/opt/kafka_2.12-2.0.0/config/server1.properties
+# or daemon mode
+kafka-server-start.sh -daemon /home/consultant/Desktop/opt/kafka_2.12-2.0.0/config/server1.properties
+
+jps
+# QuorumPeerMain and Kafka should be running...
+
+# create a new topic
+kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic kafkaTest
+
+
+
+
+# look at the topic (describe)
+kafka-topics.sh --describe --zookeeper localhost:2181 --topic kafkaTest
+
+# see all the topics
+kafka-topics.sh --list --zookeeper localhost:2181
+
+
+### Send a message from terminal to terminal, from producer to consumer
+
+# start the producer in a new terminal
+kafka-console-producer.sh --broker-list localhost:9098 --topic kafkaTest
+
+# start the consumer in a new terminal
+kafka-console-consumer.sh --bootstrap-server localhost:9098 --topic kafkaTest
+
+# to read the messages from the beginning as a consumer
+kafka-console-consumer.sh --bootstrap-server localhost:9098 --topic kafkaTest --from-beginning
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic CapstoneSamirTest --from-beginning
+
+
+

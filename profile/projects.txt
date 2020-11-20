@@ -1,0 +1,51 @@
+research about the company 
+city 2 3 about the city
+2 3 places good food, restaurants...
+
+weither
+
+create cheat sheet fro each project
+    - company name, position(data engineer), dates, Bissness case (What the project about )
+    - Project tools
+    - DAG Kafka->Spark->Hive 
+
+### (1) current project #############################################################
+
+    - THE HARTFORD, Hartford, connecticut
+    - Data engineer
+    - january 2019 - present.
+    - Ingesting Data from the Company rest API and store them in relational database for marketing purposes.
+    - Flume (ingesting tool), MySQL (storing tool), HDFS, Apache Spark, Hive, 
+
+    Financial and insurance company, Fortune 500
+    Christopher Swift CEO, Doug Elliot President, Beth Costello CFO
+    insurance company for individual and companies
+    Noth of New-York and South of Boston
+
+### (2) second last project ##########################################################
+
+    - PROGRESSIVE CORP, Mayfield, Ohio
+    - AWS Cloud Data Engineer
+    - may 2017 - january 2019
+    - migrating data from local to AWS S3 bucket and Redshift
+    - AWS, S3, Redshift, Spark, Hive, Kafka
+
+### (3) third last project ###########################################################
+
+    - MCKESSON CORP, Irving, Texas
+    - Big Data Engineer
+    - december 2015 - may 2017
+    - 
+    - Spark, Kafka
+
+### (4) forth last project ##############################################################
+
+    - EPIC SYSTEM, Verona, Wisconsin
+    - Big Data Engineer
+    - october 2014 - december 2015
+    - Ingesting data from Oracle, manipulate and analize record for software integration.
+    - Hortonworks, Flume, Kafka, HDFS, Spark, Oracle, MySQL, Hbase
+
+    Health company, software & services,  
+    Founded in 1979, Epic build software to retrieve electronic record from patient.
+    Wisconsin up north Chicago, verona 10 miles from madison

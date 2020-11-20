@@ -1,0 +1,25 @@
+###### FLUME #######
+Ingestion tools, data will be transfered from the SOURCE, the CHANNEL is the way to go to the SINK.
+The Agent is the one that says from what source and what channel and to what sink the data will be handle
+The Agent is configure in the Desktop/opt/flume-1.8.0/conf/flume-conf1.properties
+
+
+## install Flume
+# doc for the properties: https://data-flair.training/blogs/flume-source/
+
+cd Desktop/opt
+wget http://archive.apache.org/dist/flume/1.8.0/apache-flume-1.8.0-bin.tar.gz
+tar zxvf apache-flume-1.8.0-bin.tar.gz 
+rm apache-flume-1.8.0-bin.tar.gz
+mv apache-flume-1.8.0-bin/ flume-1.8.0
+cd flume-1.8.0/
+pwd
+cd
+gedit .bash_profile
+    (paste this into the file .bash_profile)
+    >   ## FLUME Home
+        export FLUME_HOME=/home/consultant/Desktop/opt/flume-1.8.0
+        export PATH=$PATH:$FLUME_HOME/bin
+source .bash_profile
+flume-ng version (to make sure it's working)
+

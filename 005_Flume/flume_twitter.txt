@@ -1,0 +1,66 @@
+############################################## TWITTER ############################################################
+## Ingesting data fronm twitter API with a key word to HDFS
+
+# make sure hadoop is running, if not start-yarn.sh and start-dfs.sh
+jps
+
+cd Desktop/opt/flume-1.8.0/conf
+ls
+cp flume-env.sh.template flume-env1.sh
+ls
+gedit flume-env1.sh
+# Add this to the file
+    > export CLASSPATH=$CLASSPATH:/FLUME_HOME/lib/* 
+# create a copy of the conf.proporties for twitter
+cp flume-conf.properties.template flume-conf_twitter.properties
+gedit flume-conf_twitter.properties
+# Add this confiurations
+
+    ## TWITTER API 
+
+    # Naming the components on the current agent. 
+    TwitterAgent.sources = Twitter 
+    TwitterAgent.channels = MemChannel 
+    TwitterAgent.sinks = HDFS
+    
+    # Describing/Configuring the source 
+    TwitterAgent.sources.Twitter.type = org.apache.flume.source.twitter.TwitterSource
+    TwitterAgent.sources.Twitter.consumerKey = 
+    TwitterAgent.sources.Twitter.consumerSecret = 
+    TwitterAgent.sources.Twitter.accessToken = 
+    TwitterAgent.sources.Twitter.accessTokenSecret = 
+    TwitterAgent.sources.Twitter.keywords = miami
+    TwitterAgent.sources.Twitter.language = en   
+
+    # Describing/Configuring the sink 
+
+    TwitterAgent.sinks.HDFS.type = hdfs 
+    TwitterAgent.sinks.HDFS.hdfs.path = /twitter_data/
+    TwitterAgent.sinks.HDFS.hdfs.fileType = DataStream 
+    TwitterAgent.sinks.HDFS.hdfs.writeFormat = Text 
+    TwitterAgent.sinks.HDFS.hdfs.batchSize = 1000
+    TwitterAgent.sinks.HDFS.hdfs.rollSize = 0 
+    TwitterAgent.sinks.HDFS.hdfs.rollCount = 10000 
+    
+    # Describing/Configuring the channel 
+    TwitterAgent.channels.MemChannel.type = memory 
+    TwitterAgent.channels.MemChannel.capacity = 10000 
+    TwitterAgent.channels.MemChannel.transactionCapacity = 100
+    
+    # Binding the source and sink to the channel 
+    TwitterAgent.sources.Twitter.channels = MemChannel
+    TwitterAgent.sinks.HDFS.channel = MemChannel
+
+# Create a folder in HDFS to receive the data
+hdfs dfs -mkdir /twitter_data
+
+# Run the command to start the process with flume
+
+flume-ng agent --name TwitterAgent --conf-file conf/flume-conf_twitter.properties -Dflume.root.logger=INFO,console
+
+# to verify if the content is here 
+
+ hdfs dfs -ls /twitter_data
+
+# to look inside of it 
+hdfs dfs -cat /twitter_data/FlumeData.1594743323785

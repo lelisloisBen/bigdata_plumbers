@@ -1,0 +1,48 @@
+texas
+
+turn camera on
+waste management
+
+a litle bit complex
+java exeperience
+
+-> elevator 
+
+what have you done with java ?
+    - map reduce task spark task with java
+    - spark code with java
+    - experience with kaf
+
+python or java language you prefer ?
+    - i like python but can do with java and adapt
+
+have you done real-time processing ?
+    - last 4 years
+
+if you have to do a data migration on AWS how will you do it? 
+migration tell me what will you do
+    - kinesis, EMR, Ec2, S3 // lambda function to trigger EMR when new data. 
+    - create data pipeline
+    - process with Ec2
+
+have you used cluster environement?
+
+where are you located
+    georgia
+
+where is marieta
+
+last project is almost done?
+
+Visa?
+
+what is the expiration date?
+
+project will be one year...
+
+email ssn
+
+references?? -> email
+
+how long working with (Marketing guy name) ? couple years.
+

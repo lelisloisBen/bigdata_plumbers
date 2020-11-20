@@ -1,0 +1,139 @@
+#######################  How to install Hadoop 3.1.3 ####################################
+
+## Update first
+    $ sudo apt-get update
+
+## Install SSH 
+
+    $ sudo apt-get install openssh-server openssh-client
+
+## Create new directory name it 'opt'
+    $ cd Desktop
+    $ mkdir opt
+    $ cd opt
+
+## Download Hadoop inside 'opt' directory
+    $ wget http://apache.mirrors.hoobly.com/hadoop/common/current/hadoop-3.1.3.tar.gz
+
+## Unzip the file
+    $ tar -zxvf hadoop-3.1.3.tar.gz
+
+## Open txt file of bash profile (at the root)
+    $ cd
+    $ sudo gedit .bash_profile
+
+## Set up Hadoop Home 
+## ( copy and paste the code below, HADOOP_HOME has to be the path of the folder inside 'opt' )
+    ## Hadoop Home
+    export HADOOP_HOME=/home/consultant/Desktop/opt/hadoop-3.1.3
+    export HADOOP_INSTALL=$HADOOP_HOME
+    export HADOOP_MAPRED_HOME=$HADOOP_HOME
+    export HADOOP_COMMON_HOME=$HADOOP_HOME
+    export HADOOP_HDFS_HOME=$HADOOP_HOME
+    export YARN_HOME=$HADOOP_HOME
+    export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+    export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+
+
+## Set up the Hadoop Configuration files
+    $ cd Desktop/opt
+    $ cd hadoop/etc/hadoop
+
+## (1) Edit hadoop-env.sh
+    $ sudo gedit hadoop-env.sh
+    ## (copy and paste this line below at line '54')
+        export JAVA_HOME=/home/consultant/Desktop/opt/jdk1.8.0_221
+
+
+
+## (2) Edit core-site.xml
+    $ sudo gedit core-site.xml
+    ## (copy and paste code below inside <configuration> tag)
+        <property>
+        <name>fs.default.name</name>
+            <value>hdfs://localhost:9000</value>
+        </property>
+
+## Create 1 directory hdfs and 2 directory namenode and datanode
+    $ cd Desktop/opt/hadoop-3.1.3
+    $ mkdir hdfs
+    $ cd hdfs
+    $ mkdir datanode
+    $ mkdir namenode
+    $ pwd (copy the path)
+
+## (3) Edit hdfs-site.xml
+    $ sudo gedit hdfs-site.xml
+    ## (copy and paste code below inside <configuration> tag)
+    ## (paste the path from hdfs namenode and datanode)
+        <property>
+        <name>dfs.replication</name>
+        <value>1</value>
+        </property>
+        <property>
+        <name>dfs.name.dir</name>
+            <value>file:/home/consultant/Desktop/opt/hadoop-3.1.3/hdfs/namenode</value>
+        </property>
+        <property>
+        <name>dfs.data.dir</name>
+            <value>file:/home/consultant/Desktop/opt/hadoop-3.1.3/hdfs/datanode</value>
+        </property>
+
+
+## (4) Edit mapred-site.xml
+    $ sudo gedit mapred-site.xml
+    ## (copy and paste code below inside <configuration> tag)
+        <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+        </property>
+
+        <property>
+        <name>yarn.app.mapreduce.am.env</name>
+        <value>HADOOP_MAPRED_HOME=/home/consultant/Desktop/opt/hadoop-3.1.3</value>
+        </property>
+
+        <property>
+        <name>mapreduce.map.env</name>
+        <value>HADOOP_MAPRED_HOME=/home/consultant/Desktop/opt/hadoop-3.1.3</value>
+        </property>
+
+        <property>
+        <name>mapreduce.reduce.env</name>
+        <value>HADOOP_MAPRED_HOME=/home/consultant/Desktop/opt/hadoop-3.1.3</value>
+        </property>
+
+        <property> 
+            <name>mapreduce.application.classpath</name>
+            <value>/home/consultant/Desktop/opt/hadoop-3.1.3/etc/hadoop:/home/consultant/Desktop/opt/hadoop-3.1.3/share/hadoop/common/lib/*:/home/consultant/Desktop/opt/hadoop-3.1.3/share/hadoop/common/*:/home/consultant/Desktop/opt/hadoop-3.1.3/share/hadoop/hdfs:/home/consultant/Desktop/opt/hadoop-3.1.3/share/hadoop/hdfs/lib/*:/home/consultant/Desktop/opt/hadoop-3.1.3/share/hadoop/hdfs/*:/home/consultant/Desktop/opt/hadoop-3.1.3/share/hadoop/mapreduce/lib/*:/home/consultant/Desktop/opt/hadoop-3.1.3/share/hadoop/mapreduce/*:/home/consultant/Desktop/opt/hadoop-3.1.3/share/hadoop/yarn:/home/consultant/Desktop/opt/hadoop-3.1.3/share/hadoop/yarn/lib/*:/home/consultant/Desktop/opt/hadoop-3.1.3/share/hadoop/yarn/*
+        </value>
+        </property>
+
+## (5) Edit yarn-site.xml
+    $ sudo gedit yarn-site.xml
+    ## (copy and paste code below inside <configuration> tag)
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+
+
+## Source bash profile ( at root )
+    $ cd
+    $ source .bash_profile
+
+## Format HDFS Namenode ( at root )
+    $ cd
+    $ hdfs namenode -format
+
+## Start all sh ( at root )
+    $ cd
+    $ start-all.sh // start-yarn.sh and start-dfs.sh (better to start like that)
+
+## verify if everything is running
+    $ jps
+
+
+## Install mysql and add user for access remotly the datas
+
+

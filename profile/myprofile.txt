@@ -1,0 +1,80 @@
+Bachelor of Science
+Major: General Science
+Cavaillon, France (2001)
+
+Master of Electrical Engineering
+Major: Electrical Engineering
+Avignon, France (2005)
+
+Profile:
+
+research about the company 
+city 2 3 about the city
+2 3 places good food, restaurants...
+
+weither
+
+create cheat sheet fro each project
+    - company name, position(data engineer), dates, Bissness case (What the project about )
+    - Project tools
+    - DAG Kafka->Spark->Hive 
+
+########### ELEVATOR ##################
+
+Elevator:
+
+I'm a data eng with 5 years experience,
+during my carier i have been ingesting data from many sources
+and used different processing tools also store my data with a large variety of databases.
+
+I'm currently working at The Hartford, hardfort Connecticut as Data engineer.
+Ingesting Data from the Company rest API and store them in relational database for marketin purposes.
+I'm using Flume for ingest the Data to HDFS, Spark to perform transformation such as 
+map or filter and MySQL to store the data. 
+I created the Agent for flume and write the python code for spark.
+
+Prior to that,
+
+I worked as AWS Cloud Data engineer at Progressive Corporation, mayfield Ohio.
+We were transfering the data from a local data warehouse to AWS S3 bucket and Redshift
+
+I've been excelling in Data Ingesting and processing also in data migration during this years,
+that's why I think I will fit perfectly for the position you offering.
+
+###################################################
+
+Intro:
+    5 years experience, overview of experience. 
+I'm a data eng with 5 years experience,during my carier i have been ingesting data from many sources
+and used different processing tools also store my data with a large variety of databases.
+
+Most Rescent Project:
+    company name as a data engineer, bussiness case..., tools, your role.
+
+Prior to that,
+
+Second Most Rescent Project:
+    Company name as a data..., bussiness case.
+
+conclusion:
+    i've been exallling 
+
+
+####################
+
+kafka up to 10.000 per Second
+resource
+file size / memory size
+partition / replication
+partition > Consumer
+Replication < Broker
+
+spark 
+
+
+################
+
+STAR Question
+    - using the vendor tools, all the coworkers want the new tool but i did a spreadshit with poor and cons and gave
+    to the manager and they decided to take my choose that was to keep the old version and not to go with the 
+    new one where everyone wanted to go

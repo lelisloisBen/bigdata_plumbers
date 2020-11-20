@@ -1,0 +1,31 @@
+1) What's Big Data ?
+    - Big data, large and diverse data collected and processed from different source like 		databases, servers or computers and make them ready to be read for the data analist
+    - 5 V's : velocity, volume, variety, veracity, value
+
+2) What's Hadoop and it's components ?
+    - Hadoop is a framework for storing data, massive storage of any kind of data and processing huge volume of data. HDFS, YARN, MapReduce
+
+3) Difference between hadoop 2 and hadoop 3 ?
+    - hadoop 2 128mb hdfs blocks in datanodes and hadoop 3 256mb hdfs blocks in datanode.
+
+
+4) What is a checkpoint in hadoop ?
+    - the checkpoint in hadoop is making periodic copy of the namenode in the file system in case of 	failure.
+
+5) Difference between HDFS block and Input slit ?
+    - hdfs block it's a block wit a size of 128mb where data is store and the input slit is the data from the mapper and it's store in blocks. HDFS block is 128mb and input split can be many blocks of HDFS Blocks.
+
+6) What is Namenode, checkpoint namenode and backup namenode ?
+    - NameNode is the node that curently running, the backup node is a copy of the namenode but not runnig, the checkpoint namenode is a copy inside the system.
+    namenode manage metadata. Checkpoint namenode, create checkpoint of the namenode at regular intervals. Backup Node same as Checkpoint namenode but will be run only if checkpoint fail.
+
+7) HDFS architecture ?
+    - Client -> nameNode -> one or many dataNode
+ 
+8) Diference between Sqoop and Flume ?
+    - sqoop is use to exchange between Hadoop and relational databases, flume is use for different source of data with large amount of data.
+
+9) MapReduce stages ?
+    - Map
+    - Shuffle / sort
+    - Reduce

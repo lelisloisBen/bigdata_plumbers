@@ -1,0 +1,35 @@
+# NIFI Install
+
+cd Desktop/opt
+wget http://archive.apache.org/dist/nifi/1.9.0/nifi-1.9.0-bin.tar.gz
+tar zxvf nifi-1.9.0-bin.tar.gz
+rm nifi-1.9.0-bin.tar.gz
+
+cd 
+gedit .bash_profile
+    >   ## NIFI Home
+        export NIFI_HOME=/home/consultant/Desktop/opt/nifi-1.9.0
+        export PATH=$PATH:$NIFI_HOME/bin
+
+source .bash_profile
+nifi.sh start
+nifi.sh status
+# if nifi is running, go to localhost:8080/nifi
+
+# to start a test, send a file from a folder to another folder
+# create on Desktop a folder, and 2 folder inside, source ans sink, 
+# create a file inside source as test1 and write anything
+
+cd Desktop
+mkdir source sink
+cd source
+gedit test1
+    > this is a test
+pwd -> copy the path for the configuration in nifi
+
+## NIFI INTERFACE
+
+new processor, choose GetFile, right click, configuration, input path, paste the source path
+new processor, choose PutFile, right click, configuration, input path, paste the sink path
+link them with the mouse, start both processor
+wait and verify the file has been transfered

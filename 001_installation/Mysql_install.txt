@@ -1,0 +1,126 @@
+### TO INSTALL MYSQL 
+
+sudo apt-get update
+sudo apt-get install mysql-server
+sudo mysql_secure_installation utility
+# yes to all
+
+
+-------- If Not Worknig from there do optional step -------------------------
+
+### ALLOW REMOTE ACCESS
+
+sudo ufw enable
+sudo ufw allow mysql
+
+#### LAUNCH AT REBOOT 
+
+sudo systemctl enable mysql
+sudo systemctl restart mysql
+
+
+#### SET UP PASSWORD (optional once in mysql)
+
+    UPDATE mysql.user SET authentication_string = PASSWORD('password') WHERE User = 'root';
+    FLUSH PRIVILEGES;
+
+
+#### VIEW USERS
+	SELECT User, Host, authentication_string FROM mysql.user;
+
+------------------------------------------------------------------------
+OPTIONAL STEP FOR ALLOW REMOTE ACCESS 
+------------------------------------------------------------------------
+## NEW USER MYSQL ACCESS REMOTLY
+https://medium.com/@nitingupta.bciit/setup-sqoop-to-import-mysql-data-to-hdfs-on-ubuntu-16-04-5243d9eef560
+
+create an user to access remotly the database
+
+## access locally your database
+    $ sudo mysql
+
+## Create a database for hadoop
+    $ create DATABASE hadoop_test;
+    $ use hadoop_test;
+
+## Create a new table user 
+    $ create table user(name varchar(20));
+
+## Create new mySql login user named as "sqoop_user"
+    $ CREATE USER 'sqoop_user'@'localhost' IDENTIFIED BY 'Welcome2BB';
+
+## Provide new user “sqoop_user” privilege to connect to “hadoop_test” database.
+    $ GRANT ALL PRIVILEGES ON hadoop_test.* TO 'sqoop_user'@'localhost';
+    $ FLUSH PRIVILEGES;
+
+## Login to mysql using new user "sqoop_user" (remotly)
+    $ mysql -u sqoop_user -p
+    $ Welcome2BB
+
+
+--------------------------------------------------------------------------------
+        END REMOTE ACCESS
+------------------------------------------------------------------------------- 
+
+
+#### START USING MYSQL
+
+sudo mysql 
+show databases
+create database data_plumbers;
+use data_plumbers
+show tables;
+
+
+#### CREATE THE SCHEMA OF OUR FIRST TABLE 
+
+CREATE TABLE employee (
+	id INT NOT NULL AUTO_INCREMENT,
+	firstName VARCHAR(255) NOT NULL,
+	lastName VARCHAR(255) NOT NULL,
+	address VARCHAR(255) NOT NULL,
+	city VARCHAR(255) NOT NULL,
+	zipCode INT(5) NOT NULL,
+	phoneNumber INT(16) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+	PRIMARY KEY (id)
+	);
+
+
+#### ADD DATA TO OUR FIRST TABLE FROM A CSV FILE 
+
+LOAD DATA LOCAL INFILE '/home/consultant/Downloads/Employee.csv'
+INTO TABLE employee
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(id, firstName, lastName, address, city, zipCode, phoneNumber, email);
+
+
+#### CREATE THE SCHEMA OF OUR SECOND TABLE 
+
+CREATE TABLE hr (
+	employeeId INT NOT NULL,
+	deptId INT NOT NULL,
+	salary INT NOT NULL,
+	startDate DATE NOT NULL,
+	manager VARCHAR(255) NOT NULL,
+	deptName VARCHAR(255) NOT NULL,
+	PRIMARY KEY (employeeId)
+);
+
+
+#### ADD DATA TO OUR SECOND TABLE FROM A CSV FILE 
+
+LOAD DATA LOCAL INFILE '/home/consultant/Desktop/bigdata_plumbers/hr.csv'	
+INTO TABLE hr
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(employeeId, deptId, salary, startDate, manager, deptName);
+
+
+now you are good to run mysql queries 
+
+SELECT * FROM employee;
+SELECT * FROM hr WHERE salary>60000;

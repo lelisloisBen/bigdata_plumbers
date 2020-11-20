@@ -1,0 +1,25 @@
+Ingesting Data from slack, only one day. We need to counts all the words and define if in all this word less than 20% of them will be consider bad word, curse words and swear words.
+
+If the kids channel will be created, we will create a pipeline to check a random channel everyday day and check if the channel is still less of 20% bad words. If this channel is more the 20% bad word it will be consider as Adult channel.
+
+Create two pipelines,
+- One to count all the words used in one day.
+Spark will filer and count and all the words and bad words
+
+If less than 20% are bad words we can allow kids to have channels.
+
+Here a list of few bad words, curse words and swear words.
+
+- Asshole
+- Dyke
+- Fag
+- Shit
+- Damn
+- Fuck
+- Jerkoff
+- Ass
+
+https://#data_plumbers.slack.com/oauth/authorize?client_id=#846711423270.1251676042164&scope=client
+
+
+https://#data_plumbers.slack.com/api/oauth.access?client_id=846711423270.1251676042164&client_secret=fd27071cd080622e500874601bb1abeb&code=dPlF9eFF4V4zytkRe8eENe8I"

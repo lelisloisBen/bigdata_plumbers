@@ -1,0 +1,47 @@
+####### SAMIR #######
+
+# Q1
+Tell me about a time when you have to deal with a difficult coworker or manager,
+how did you deal with it?
+what was the outcome?
+
+# A1
+I was working on a group project, we had to finsih to build a pipeline before the week.
+One of my coworker was late and frustated.
+I asked him what was the issue and he reacted agresivly.
+Then I asked him how can i assit him.
+He calm down and we found a way to fix his issue.
+I learned that is't better to ask help right away to avoid the frustation and meet
+the deadline.
+
+# Q2
+Give me an example when you worked on a team.
+What was your role?
+What was the outcome?
+
+# A2
+I was working on a pipeline on my last project with my coworkers,
+I was using Apache-Spark and Python to filer the data by date and removing special characters.
+I think I'm more successful at work when I have a team to support me.
+We were Having group meeting in the mornings and afternoons to share our progress.
+I learned that working as a team give you motivation and help to know the team better.
+
+###### ERIC ######
+
+#Q1
+Tell me about a situation that represented a challenge and how did you dea with it?
+
+#A1
+I was working in a project ingesting data from a public API
+and one week before the deadline there was a major update in the API.
+After that, almost 40% of my code was useless so I had to work extra hours to solve the problem.
+What I learned was that it is always good to ask to the API developers if there will be updates.
+
+#Q2
+Tell me about a time you did a mistake and how did you deal with it?
+
+#A2
+Once I was ingesting data from an API with an AWS instance and I forgot to stop the process.
+That mistake costed a couple of hundreds to the company so I talked with y boss about the situation.
+He told me that everything was good and that that was not a big deal.
+I learned to be more careful with my processes, even more when dealing with AWS machines.

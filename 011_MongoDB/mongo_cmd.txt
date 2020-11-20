@@ -1,0 +1,36 @@
+## Some commands for mangoDB (JSON format)
+
+## Install MongoDB ubuntu18
+
+sudo apt update
+sudo apt install -y mongodb
+
+## To start mongoDB
+mongo
+
+## To see databases
+show dbs
+
+## To see Collections (collections are like tables)
+show collections
+
+## To create a collections
+db.createCollection('consultant')
+
+## To insert in that collections 
+db.consultant.insert({first_name:"samir",last_name:"Ben",age:36})
+
+## To see the whole collection named 'consultant' 
+db.consultant.find()
+
+## To see the whole collection named 'consultant' with Indentation
+db.consultant.find().pretty()
+
+## To sort a collection by age ASC = 1, DESC = -1, 
+## To show the data age = age:1, to hide it = age:0
+db.consultant.find({},{age:1,first_name:1}).sort({age:1})
+
+## To update a collection with adding 'gender' to all of them.
+db.consultant.update({},{$set: {"gender": "male"}}, {multi: true} )
+
+

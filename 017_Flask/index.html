@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SamirSearch</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<style>
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid mt-5">
+            <div class="container text-center">
+              <h1 class="text-center">Samir Search</h1>
+
+              <input id="inps" type="text" placeholder="Search...">
+              <input type="button" value="Submit" onclick="submitSearch()">
+
+            </div>
+          </div>    
+    </div>
+
+    <div id="loading" class="container"></div>
+    <div id="resultat" class="container">
+
+    </div>
+    
+
+<script>
+
+const submitSearch = () => {
+
+    document.getElementById("resultat").innerHTML = "";
+
+    let myloader = `<h3>Be Patient, It's coming..</h3><div class="loader mx-auto"></div>`;
+    document.getElementById('loading').innerHTML = myloader;
+
+    var inputInfo = document.getElementById("inps").value;
+    // console.log(inputInfo)
+
+    
+    // fetch('http://127.0.0.1:5000/search',{
+    fetch('https://samirsearchbackend.herokuapp.com/search',{
+    method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "word": inputInfo
+        })
+    })
+    .then(res => res.json() )
+    .then(res => {
+        res["msg"].map((item) => {
+            // document.getElementById("resultat").innerHTML += "<b>" + item["name"] + "</b>" + "</br>" + item["link"] + "</br>" + item["description"] + "</br></br>";
+            document.getElementById('loading').innerHTML = "";
+            document.getElementById("resultat").innerHTML += `<b> ${item["name"]} </b></br><a href='${item["link"]}' target='_blank'> ${item["link"]} </a> </br> ${item["description"]} </br></br> `;
+        })
+    })
+
+}    
+</script>
+
+    
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

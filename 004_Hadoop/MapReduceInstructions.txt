@@ -1,0 +1,12 @@
+
+## https://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/
+
+
+1. Create a mapper and reducer python file
+2. Test locally using echo "sample string" | <mapper directory>
+    # example 
+    # echo "foo foo quux labs foo bar quux" | mapper.py | sort -k1,1 | reducer.py
+3. Add the input file to your hadoop directory
+4. Run the jar command to run the map reduce job
+
+
