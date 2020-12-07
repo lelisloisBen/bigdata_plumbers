@@ -88,3 +88,8 @@ h3. HELP
 | reset | Resets the terminal display |
 | man [command] | Show the help for 'command' |
 | whatis [command] | Gives a one-line description of 'command' |
+
+h3. THE LINUX COMMAND LINE FOR BEGINNER
+
+"LINUX/UBUNTU":https://ubuntu.com/tutorials/command-line-for-beginners#1-overview
+
