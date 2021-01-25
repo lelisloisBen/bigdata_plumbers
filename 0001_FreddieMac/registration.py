@@ -2,112 +2,127 @@ import requests
 import json 
 
 myheaders = {
-   	"x-rapidapi-host": "free-nba.p.rapidapi.com",
-	"x-rapidapi-key": "14a8b42a6cmshceb9a36e240a1cep1dc18ejsnf5536497b56e",
-	"useQueryString": 'true'
+   	"x-api-key": "tMIzS0ANqu4Y3qx5CzoSb7upt4g8Q7hX9WYGDFls",
+	"Content-Type": "application/json"
 }
 
 post = {
-	"name": "lss_application",
+	"name": "lss_app_byol_1",
 	"active": true,
 	"prefixKey": "sf/lss",
 	"sourceSchemaDb": "schemadb_raw",
 	"sourceSchemaGlue": [{
-			"name": "currencybase",
+			"name": "Region",
 			"type": "string"
 		},
 		{
-			"name": "cashvalue",
+			"name": "Country",
 			"type": "string"
 		},
 		{
-			"name": "divisoreod",
-			"type": "double"
-		},
-		{
-			"name": "id_index",
+			"name": "ItemType",
 			"type": "string"
 		},
 		{
-			"name": "currencyreturnmtdbase",
-			"type": "double"
-		},
-		{
-			"name": "returndailybase",
+			"name": "SalesChannel",
 			"type": "string"
 		},
 		{
-			"name": "date",
+			"name": "OrderPriority",
 			"type": "string"
 		},
 		{
-			"name": "indexdescription",
+			"name": "OrderDate",
 			"type": "string"
 		},
 		{
-			"name": "system",
+			"name": "OrderID",
+			"type": "integer"
+		},
+		{
+			"name": "ShipDate",
 			"type": "string"
 		},
 		{
-			"name": "year",
+			"name": "UnitsSold",
 			"type": "string"
 		},
 		{
-			"name": "month",
+			"name": "UnitPrice",
 			"type": "string"
 		},
 		{
-			"name": "day",
+			"name": "UnitCost",
+			"type": "string"
+		},
+		{
+			"name": "TotalRevenue",
+			"type": "string"
+		},
+		{
+			"name": "TotalCost",
+			"type": "string"
+		},
+		{
+			"name": "TotalProfit",
 			"type": "string"
 		}
 	],
 	"destinationSchemaDb": "schemadb",
 	"destinationSchemaGlue": [{
-			"name": "currencybase",
+			"name": "Region",
 			"type": "string"
 		},
 		{
-			"name": "cashvalue",
+			"name": "Country",
 			"type": "string"
 		},
 		{
-			"name": "divisoreod",
-			"type": "double"
-		},
-		{
-			"name": "id_index",
+			"name": "ItemType",
 			"type": "string"
 		},
 		{
-			"name": "currencyreturnmtdbase",
-			"type": "double"
-		},
-		{
-			"name": "returndailybase",
+			"name": "SalesChannel",
 			"type": "string"
 		},
 		{
-			"name": "date",
+			"name": "OrderPriority",
 			"type": "string"
 		},
 		{
-			"name": "indexdescription",
+			"name": "OrderDate",
 			"type": "string"
 		},
 		{
-			"name": "system",
+			"name": "OrderID",
+			"type": "integer"
+		},
+		{
+			"name": "ShipDate",
 			"type": "string"
 		},
 		{
-			"name": "year",
+			"name": "UnitsSold",
 			"type": "string"
 		},
 		{
-			"name": "month",
+			"name": "UnitPrice",
 			"type": "string"
 		},
 		{
-			"name": "day",
+			"name": "UnitCost",
+			"type": "string"
+		},
+		{
+			"name": "TotalRevenue",
+			"type": "string"
+		},
+		{
+			"name": "TotalCost",
+			"type": "string"
+		},
+		{
+			"name": "TotalProfit",
 			"type": "string"
 		},
 		{
@@ -116,8 +131,8 @@ post = {
 		}
 	],
 	"dataQuality": {
-		"className": "com.idata.edl.dataquality.DataQualityCheck",
-		"file": "s3://idata-config/spark/edl-dataquality-assembly-0.1.jar",
+		"className": "",
+		"file": "s3://freddie-mac-sandbox-config/spark/byol/BYOL_innerJoinSpark.py",
 		"sourceFileAttributes": {
 			"type": "csv",
 			"delimiter": "|",
@@ -127,28 +142,25 @@ post = {
 			"type": "csv",
 			"delimiter": "|",
 			"header": true
-		},
-		"rules": {
-			...
 		}
 	},
 	"transform": {
-		"className": "com.idata.edl.csvtoparquet.CsvToParquet",
-		"file": "s3://idata-config/spark/edl-csvtoparquet-assembly-0.1.jar",
+		"className": "",
+		"file": "s3://freddie-mac-sandbox-config/spark/byol/BYOL_innerJoinSpark.py",
 		"sourceFileAttributes": {
 			"type": "csv",
 			"delimiter": "|",
 			"header": true
 		},
-		"keyFields": ["id", "index"],
-		"partitionBy": ["date"],
+		"keyFields": ["OrderID"],
+		"partitionBy": ["OrderDate"],
 		"useDelta": true,
 		"useHudi": false
 	}
 }
 
 
-requests.post('https://free-nba.p.rapidapi.com/stats', headers=myheaders)
+requests.post('https://i0tpt9ahrl.execute-api.us-east-1.amazonaws.com/dev', headers=myheaders)
 
 # x= requests.get('https://free-nba.p.rapidapi.com/stats', headers=myheaders)
 # t = x.json()
