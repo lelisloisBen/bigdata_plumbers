@@ -14,22 +14,22 @@ df_borr=spark.read.csv("s3://freddie-mac-sandbox-raw/rimes/index/ftse_idx_std/BY
 df_borr.createOrReplaceTempView("input_borr")
 
 df_joined=spark.sql("""SELECT
-                       a.Region,
-                       a.Country,
-                       a.ItemType,
-                       a.SalesChannel,
-                       a.OrderPriority,
-                       a.OrderDate,
-                       a.OrderID,
-                       a.ShipDate,
-                       a.UnitsSold,
-                       a.UnitPrice,
-                       a.UnitCost,
-                       a.TotalRevenue,
-                       a.TotalCost,
-                       a.TotalProfit
+                       a.region,
+                       a.country,
+                       a.itemTtype,
+                       a.saleschannel,
+                       a.orderpriority,
+                       a.orderdate,
+                       a.orderid,
+                       a.shipdate,
+                       a.unitssold,
+                       a.unitprice,
+                       a.unitcost,
+                       a.totalrevenue,
+                       a.totalcost,
+                       a.totalprofit
                        FROM input_laus a JOIN input_borr b
-                       ON a.ItemType = b.ItemType""")
+                       ON a.itemtype = b.itemtype""")
 
 
 df_inner_joined_final=df_joined.withColumn('dttm_lst_updt_lake', F.current_timestamp())
