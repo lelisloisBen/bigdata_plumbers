@@ -14,10 +14,10 @@ myheaders = {
 }
 
 body = {
-	"name": "lss_app_byol_1",
+	"name": "lss_app_byol_2",
 	"active": "true",
 	"prefixKey": "sf/lss",
-	"sourceSchemaDb": "demodb",
+	"sourceSchemaDb": "byol_2_shema_in",
 	"sourceSchemaGlue": [{
 			"name": "Region",
 			"type": "string"
@@ -75,7 +75,7 @@ body = {
 			"type": "string"
 		}
 	],
-	"destinationSchemaDb": "schemadb",
+	"destinationSchemaDb": "byol_2_shema_out",
 	"destinationSchemaGlue": [{
 			"name": "Region",
 			"type": "string"
@@ -167,7 +167,7 @@ body = {
 }
 
 
-r = requests.post('https://i0tpt9ahrl.execute-api.us-east-1.amazonaws.com/dev/dataset', headers=myheaders, body=body)
+r = requests.post('https://i0tpt9ahrl.execute-api.us-east-1.amazonaws.com/dev/dataset', headers=myheaders, data=json.dumps(body))
 t = r.json()
 print(t)
 # x= requests.get('https://free-nba.p.rapidapi.com/stats', headers=myheaders)
