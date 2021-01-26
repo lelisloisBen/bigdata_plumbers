@@ -1,16 +1,23 @@
 import requests
 import json 
+# from aws_requests_auth.boto_utils import BotoAWSRequestsAuth
+
+# auth = BotoAWSRequestsAuth(
+#     aws_host="i0tpt9ahrl.execute-api.us-east-1.amazonaws.com",
+#     aws_region="us-east-1",
+#     aws_service="execute-api"
+# )
 
 myheaders = {
    	"x-api-key": "tMIzS0ANqu4Y3qx5CzoSb7upt4g8Q7hX9WYGDFls",
 	"Content-Type": "application/json"
 }
 
-post = {
+body = {
 	"name": "lss_app_byol_1",
-	"active": true,
+	"active": "true",
 	"prefixKey": "sf/lss",
-	"sourceSchemaDb": "schemadb_raw",
+	"sourceSchemaDb": "demodb",
 	"sourceSchemaGlue": [{
 			"name": "Region",
 			"type": "string"
@@ -37,7 +44,7 @@ post = {
 		},
 		{
 			"name": "OrderID",
-			"type": "integer"
+			"type": "int"
 		},
 		{
 			"name": "ShipDate",
@@ -95,7 +102,7 @@ post = {
 		},
 		{
 			"name": "OrderID",
-			"type": "integer"
+			"type": "int"
 		},
 		{
 			"name": "ShipDate",
@@ -136,12 +143,12 @@ post = {
 		"sourceFileAttributes": {
 			"type": "csv",
 			"delimiter": "|",
-			"header": true
+			"header": "true"
 		},
 		"destinationFileAttributes": {
 			"type": "csv",
 			"delimiter": "|",
-			"header": true
+			"header": "true"
 		}
 	},
 	"transform": {
@@ -150,18 +157,19 @@ post = {
 		"sourceFileAttributes": {
 			"type": "csv",
 			"delimiter": "|",
-			"header": true
+			"header": "true"
 		},
 		"keyFields": ["OrderID"],
 		"partitionBy": ["OrderDate"],
-		"useDelta": true,
-		"useHudi": false
+		"useDelta": "true",
+		"useHudi": "false"
 	}
 }
 
 
-requests.post('https://i0tpt9ahrl.execute-api.us-east-1.amazonaws.com/dev', headers=myheaders)
-
+r = requests.post('https://i0tpt9ahrl.execute-api.us-east-1.amazonaws.com/dev/dataset', headers=myheaders, body=body)
+t = r.json()
+print(t)
 # x= requests.get('https://free-nba.p.rapidapi.com/stats', headers=myheaders)
 # t = x.json()
 # print(t)
